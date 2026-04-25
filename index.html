@@ -1,0 +1,367 @@
+Here is the full code — copy it all and paste it in:
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VERDICT — AI-powered legal rights analysis. Know your rights. Fight back.">
+<title>VERDICT — Your AI Legal Advocate</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--black:#07070f;--white:#ffffff;--gold:#f5a623;--gold-light:#ffc247;--gold-dark:#c47d0a;--blue:#2040ff;--red:#ff3030;--green:#00c97a;--surface:#0e0e1a;--surface2:#14142a;--border:rgba(255,255,255,0.07);--border-gold:rgba(245,166,35,0.28);--muted:rgba(255,255,255,0.38);--mid:rgba(255,255,255,0.62);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Lora',serif;font-size:17px;line-height:1.6;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 5%,rgba(32,64,255,.1) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 85% 85%,rgba(245,166,35,.07) 0%,transparent 55%),radial-gradient(ellipse 35% 55% at 65% 25%,rgba(255,48,48,.05) 0%,transparent 50%);pointer-events:none;z-index:0;}
+.page{display:none;position:relative;z-index:1;}
+.page.active{display:block;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 52px;height:70px;position:sticky;top:0;z-index:200;background:rgba(7,7,15,.88);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--blue) 60%,transparent);opacity:.45;}
+.nav-brand{display:flex;align-items:center;gap:14px;cursor:pointer;}
+.nav-logo-box{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:var(--black);clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%);}
+.nav-brand-stack{display:flex;flex-direction:column;gap:2px;}
+.nav-brand-name{font-family:'Syne',sans-serif;font-weight:800;font-size:19px;letter-spacing:.12em;color:var(--white);line-height:1;}
+.nav-brand-sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);line-height:1;}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-link{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 16px;cursor:pointer;transition:color .18s;background:none;border:none;}
+.nav-link:hover{color:var(--white);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-live{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);padding:7px 14px;border:1px solid rgba(0,201,122,.22);background:rgba(0,201,122,.06);}
+.nav-live::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:livePulse 2s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,122,.4);}50%{opacity:.7;box-shadow:0 0 0 5px rgba(0,201,122,0);}}
+.nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);border:none;padding:12px 26px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .22s;clip-path:polygon(0 0,100% 0,100% 70%,88% 100%,0 100%);}
+.nav-cta:hover{background:linear-gradient(135deg,var(--gold-light),var(--gold));transform:translateY(-1px);box-shadow:0 8px 28px rgba(245,166,35,.38);}
+.hero{min-height:calc(100vh - 70px);display:grid;grid-template-columns:1fr 460px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
+.hero-left{padding:80px 68px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(245,166,35,.09);border:1px solid var(--border-gold);padding:9px 20px;margin-bottom:36px;width:fit-content;}
+.hero-pill-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:livePulse 2s infinite;}
+.hero-pill-text{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:86px;line-height:.93;letter-spacing:-.03em;margin-bottom:36px;}
+.h1-line1{display:block;color:var(--white);}
+.h1-line2{display:block;background:linear-gradient(120deg,var(--gold) 0%,var(--gold-light) 45%,var(--gold) 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3.5s linear infinite;}
+.h1-line3{display:block;color:rgba(255,255,255,.12);font-weight:400;font-style:italic;}
+@keyframes shimmer{0%{background-position:200% center;}100%{background-position:-200% center;}}
+.hero-rule{width:72px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:32px;}
+.hero-desc{font-size:18px;line-height:1.78;color:var(--mid);max-width:540px;margin-bottom:48px;}
+.hero-desc strong{color:var(--white);font-weight:600;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:40px;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);border:none;padding:18px 42px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.btn-gold::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-light),var(--gold));opacity:0;transition:opacity .25s;}
+.btn-gold:hover::after{opacity:1;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(245,166,35,.42);}
+.btn-gold-label{position:relative;z-index:1;}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--white);border:1px solid var(--border);padding:18px 30px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18);}
+.trust-row{display:flex;align-items:center;gap:28px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.trust-icon{font-size:13px;}
+.hero-panel{background:var(--surface);border-left:1px solid var(--border);padding:52px 44px;display:flex;flex-direction:column;justify-content:center;gap:22px;position:relative;overflow:hidden;}
+.hero-panel::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(245,166,35,.07) 0%,transparent 70%);pointer-events:none;}
+.panel-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.panel-eyebrow::before{content:'';width:18px;height:1px;background:var(--gold);}
+.stat-block{background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid var(--gold);padding:22px 24px;transition:all .22s;}
+.stat-block:hover{background:rgba(245,166,35,.05);border-color:var(--border-gold);transform:translateX(5px);}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:54px;color:var(--gold);line-height:1;margin-bottom:6px;letter-spacing:-.02em;}
+.stat-label{font-size:13px;color:var(--muted);font-style:italic;line-height:1.5;}
+.ticker{background:var(--gold);padding:14px 0;overflow:hidden;position:relative;}
+.ticker-track{display:flex;animation:tickerScroll 28s linear infinite;width:max-content;}
+@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ticker-item{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--black);padding:0 36px;white-space:nowrap;display:flex;align-items:center;gap:36px;}
+.ticker-item::after{content:'◆';font-size:7px;opacity:.3;}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-eyebrow::before{content:'//';color:rgba(32,64,255,.7);}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:50px;line-height:1.05;letter-spacing:-.02em;margin-bottom:14px;}
+.section-sub{font-size:17px;color:var(--muted);font-style:italic;margin-bottom:56px;max-width:480px;}
+.use-cases{padding:96px 60px;position:relative;}
+.uc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.uc-card{background:var(--surface);border:1px solid var(--border);padding:28px 22px;transition:all .25s;position:relative;overflow:hidden;}
+.uc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .28s ease;}
+.uc-card:hover{background:var(--surface2);border-color:rgba(255,255,255,.14);transform:translateY(-5px);box-shadow:0 22px 44px rgba(0,0,0,.45);}
+.uc-card:hover::after{transform:scaleX(1);}
+.uc-icon{width:46px;height:46px;background:rgba(245,166,35,.09);border:1px solid var(--border-gold);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.uc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:.03em;margin-bottom:8px;}
+.uc-desc{font-size:12.5px;color:var(--muted);line-height:1.6;font-style:italic;}
+.app-section{display:grid;grid-template-columns:290px 1fr;border-top:1px solid var(--border);min-height:100vh;}
+.app-sidebar{background:var(--surface);border-right:1px solid var(--border);padding:40px 26px;}
+.sidebar-title{font-family:'Syne',sans-serif;font-weight:800;font-size:21px;letter-spacing:.03em;margin-bottom:4px;}
+.sidebar-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;}
+.sit-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.sit-item{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;transition:all .15s;border:1px solid transparent;font-family:'Lora',serif;font-size:14px;color:var(--muted);}
+.sit-item:hover{background:rgba(255,255,255,.04);color:var(--white);border-color:var(--border);}
+.sit-item.active{background:rgba(245,166,35,.09);border-color:var(--border-gold);color:var(--gold);}
+.sit-icon{width:28px;height:28px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.sit-item.active .sit-icon{background:rgba(245,166,35,.14);}
+.app-main{padding:48px;display:flex;flex-direction:column;gap:26px;}
+.app-head{padding-bottom:22px;border-bottom:1px solid var(--border);}
+.app-head h2{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.01em;margin-bottom:5px;}
+.app-head p{font-size:14px;color:var(--muted);font-style:italic;}
+.consent-box{background:rgba(245,166,35,.05);border:1px solid var(--border-gold);border-left:3px solid var(--gold);padding:16px 20px;}
+.consent-label{display:flex;align-items:flex-start;gap:12px;cursor:pointer;}
+.consent-label input[type=checkbox]{width:17px;height:17px;margin-top:3px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
+.consent-label span{font-size:13px;line-height:1.65;color:var(--muted);}
+.consent-label strong{color:var(--white);}
+.consent-label a{color:var(--gold);cursor:pointer;text-decoration:underline;}
+.form-group{display:flex;flex-direction:column;gap:9px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+input,select,textarea{background:var(--surface);border:1px solid var(--border);color:var(--white);padding:13px 17px;font-family:'Lora',serif;font-size:15px;outline:none;transition:all .2s;width:100%;appearance:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);background:rgba(245,166,35,.03);box-shadow:0 0 0 3px rgba(245,166,35,.07);}
+textarea{resize:vertical;min-height:136px;line-height:1.65;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.18);font-style:italic;}
+select option{background:var(--surface2);color:var(--white);}
+.privacy-row{display:flex;align-items:flex-start;gap:11px;background:rgba(0,201,122,.04);border:1px solid rgba(0,201,122,.18);padding:13px 17px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;color:var(--green);line-height:1.75;}
+.privacy-row::before{content:'🔒';font-size:13px;flex-shrink:0;}
+.analyze-btn{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);border:none;padding:19px 44px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;align-self:flex-start;position:relative;overflow:hidden;}
+.analyze-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-light),var(--gold));opacity:0;transition:opacity .25s;}
+.analyze-btn:hover:not(:disabled)::after{opacity:1;}
+.analyze-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 38px rgba(245,166,35,.42);}
+.analyze-btn:disabled{opacity:.38;cursor:not-allowed;}
+.analyze-btn-label{position:relative;z-index:1;}
+.loading-bar-wrap{display:none;align-items:center;gap:18px;padding:20px;background:var(--surface);border:1px solid var(--border-gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);}
+.loading-bar-wrap.on{display:flex;}
+.loading-bar{flex:1;height:2px;background:rgba(245,166,35,.14);overflow:hidden;}
+.loading-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));animation:fillMove 1.8s ease-in-out infinite;width:40%;}
+@keyframes fillMove{0%{transform:translateX(-100%);}100%{transform:translateX(350%);}}
+.results{display:none;flex-direction:column;gap:18px;animation:riseIn .38s ease;}
+.results.on{display:flex;}
+@keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.r-card{border:1px solid var(--border);background:var(--surface);overflow:hidden;}
+.r-head{background:var(--surface2);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;}
+.r-head-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;}
+.r-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:rgba(245,166,35,.12);color:var(--gold);padding:5px 12px;border:1px solid var(--border-gold);}
+.r-body{padding:26px;}
+.r-body p{font-size:16px;line-height:1.8;color:var(--mid);margin-bottom:13px;}
+.r-body p:last-child{margin-bottom:0;}
+.r-body strong{color:var(--white);font-weight:600;}
+.steps{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-left:3px solid var(--gold);transition:all .2s;}
+.step:hover{background:rgba(245,166,35,.04);border-color:var(--border-gold);}
+.step-n{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;color:rgba(245,166,35,.28);line-height:1;flex-shrink:0;width:34px;}
+.step-body{font-size:15px;line-height:1.65;color:var(--mid);padding-top:3px;}
+.step-body strong{display:block;color:var(--white);font-weight:700;margin-bottom:4px;font-size:13px;font-family:'Syne',sans-serif;letter-spacing:.04em;text-transform:uppercase;}
+.dl-list{display:flex;flex-direction:column;gap:7px;}
+.dl-item{display:flex;justify-content:space-between;align-items:center;padding:13px 17px;border:1px solid var(--border);background:rgba(255,255,255,.02);}
+.dl-label{font-size:15px;color:var(--mid);}
+.dl-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;padding:5px 14px;color:var(--black);font-weight:500;}
+.dl-date.urgent{background:var(--red);color:white;}
+.dl-date.warning{background:var(--gold);}
+.dl-date.safe{background:var(--green);}
+.letter-box{background:rgba(255,255,255,.02);border:1px solid var(--border);border-left:3px solid var(--blue);padding:26px;font-size:15px;line-height:1.9;color:var(--mid);white-space:pre-wrap;font-style:italic;}
+.letter-btns{display:flex;gap:11px;margin-top:16px;}
+.lbtn{padding:12px 24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:none;}
+.lbtn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);font-weight:600;}
+.lbtn.gold:hover{background:linear-gradient(135deg,var(--gold-light),var(--gold));}
+.lbtn.ghost{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border);}
+.lbtn.ghost:hover{background:rgba(255,255,255,.1);color:var(--white);}
+.disclaimer{background:rgba(255,48,48,.04);border:1px solid rgba(255,48,48,.18);border-left:3px solid var(--red);padding:17px 21px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.85;color:rgba(255,255,255,.38);letter-spacing:.03em;}
+.disclaimer strong{color:var(--red);}
+.pricing{padding:96px 60px;border-top:1px solid var(--border);background:var(--surface);position:relative;}
+.pricing::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 50% 0%,rgba(32,64,255,.05) 0%,transparent 65%);pointer-events:none;}
+.pricing-inner{max-width:1080px;margin:0 auto;position:relative;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.p-card{background:var(--black);border:1px solid var(--border);padding:42px 34px;position:relative;transition:all .25s;overflow:hidden;}
+.p-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold));transform:scaleX(0);transition:transform .28s ease;}
+.p-card:hover{border-color:rgba(255,255,255,.14);transform:translateY(-5px);box-shadow:0 26px 60px rgba(0,0,0,.5);}
+.p-card:hover::after{transform:scaleX(1);}
+.p-card.featured{border-color:var(--border-gold);background:rgba(245,166,35,.03);}
+.p-card.featured::after{transform:scaleX(1);background:linear-gradient(90deg,var(--gold),var(--gold-light));}
+.p-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;align-items:center;gap:8px;}
+.p-tag::before{content:'';width:14px;height:1px;background:var(--gold);}
+.p-name{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:.04em;margin-bottom:6px;}
+.p-price{font-family:'Syne',sans-serif;font-weight:800;font-size:68px;line-height:1;letter-spacing:-.03em;margin-bottom:4px;}
+.p-price sup{font-size:30px;color:var(--gold);vertical-align:super;}
+.p-period{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:34px;}
+.p-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:38px;}
+.p-features li{display:flex;gap:10px;font-size:14px;color:var(--mid);line-height:1.4;align-items:flex-start;}
+.p-features li::before{content:'→';color:var(--gold);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:1px;}
+.p-btn{width:100%;padding:15px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:none;}
+.p-btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);}
+.p-btn.gold:hover{background:linear-gradient(135deg,var(--gold-light),var(--gold));transform:translateY(-1px);box-shadow:0 8px 26px rgba(245,166,35,.38);}
+.p-btn.outline{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.p-btn.outline:hover{border-color:var(--border-gold);color:var(--gold);background:rgba(245,166,35,.05);}
+.legal-page{padding:76px 60px;max-width:860px;margin:0 auto;}
+.legal-page h1{font-family:'Syne',sans-serif;font-weight:800;font-size:54px;letter-spacing:-.02em;line-height:1;margin-bottom:8px;}
+.legal-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:44px;padding-bottom:22px;border-bottom:1px solid var(--border);}
+.legal-page h2{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;letter-spacing:.02em;margin:36px 0 12px;color:var(--gold);}
+.legal-page p{font-size:16px;line-height:1.85;color:var(--mid);margin-bottom:14px;}
+.legal-page ul{padding-left:22px;margin-bottom:14px;}
+.legal-page li{font-size:15px;line-height:1.8;color:var(--mid);margin-bottom:7px;}
+.legal-page strong{color:var(--white);font-weight:600;}
+.legal-highlight{background:rgba(245,166,35,.05);border:1px solid var(--border-gold);border-left:3px solid var(--gold);padding:18px 22px;margin:22px 0;font-size:15px;line-height:1.75;color:var(--mid);}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 60px 36px;}
+.footer-top{display:grid;grid-template-columns:260px 1fr auto;gap:52px;max-width:1200px;margin:0 auto 40px;padding-bottom:36px;border-bottom:1px solid var(--border);}
+.footer-name{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.1em;margin-bottom:8px;}
+.footer-name span{color:var(--gold);}
+.footer-desc{font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;}
+.footer-col-title{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.footer-links{display:flex;flex-direction:column;gap:9px;}
+.f-link{font-size:14px;color:var(--muted);cursor:pointer;transition:color .18s;background:none;border:none;text-align:left;font-family:'Lora',serif;}
+.f-link:hover{color:var(--gold);}
+.footer-legal-col{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.07em;color:rgba(255,255,255,.2);line-height:1.9;text-align:right;}
+.footer-bottom{text-align:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.07em;color:rgba(255,255,255,.18);line-height:1.8;max-width:1200px;margin:0 auto;}
+.toast{position:fixed;bottom:30px;right:30px;background:var(--surface2);color:var(--white);border:1px solid var(--border-gold);border-left:3px solid var(--gold);padding:15px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;z-index:10000;transform:translateX(130%);transition:transform .3s ease;max-width:330px;line-height:1.6;}
+.toast.show{transform:translateX(0);}
+@media(max-width:1080px){nav{padding:0 24px;}.nav-links{display:none;}.hero{grid-template-columns:1fr;}.hero-panel{border-left:none;border-top:1px solid var(--border);}.hero h1{font-size:60px;}.hero-left{padding:56px 28px;}.use-cases{padding:60px 28px;}.uc-grid{grid-template-columns:repeat(2,1fr);}.app-section{grid-template-columns:1fr;}.app-sidebar{border-right:none;border-bottom:1px solid var(--border);}.sit-list{flex-direction:row;flex-wrap:wrap;}.app-main{padding:28px 22px;}.form-row{grid-template-columns:1fr;}.pricing{padding:60px 28px;}.pricing-grid{grid-template-columns:1fr;}.legal-page{padding:44px 22px;}.footer-top{grid-template-columns:1fr;gap:28px;}.footer-legal-col{text-align:left;}footer{padding:44px 24px 28px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">
+    <div class="nav-logo-box">V</div>
+    <div class="nav-brand-stack">
+      <div class="nav-brand-name">VERDICT</div>
+      <div class="nav-brand-sub">AI Legal Advocate</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="showPage('home');delay(()=>document.getElementById('app').scrollIntoView({behavior:'smooth'}))">Analyze Case</button>
+    <button class="nav-link" onclick="showPage('home');delay(()=>document.getElementById('pricing').scrollIntoView({behavior:'smooth'}))">Pricing</button>
+    <button class="nav-link" onclick="showPage('privacy')">Privacy</button>
+    <button class="nav-link" onclick="showPage('terms')">Terms</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-live">Secure & Live</div>
+    <button class="nav-cta" onclick="showPage('home');delay(()=>document.getElementById('app').scrollIntoView({behavior:'smooth'}))">Free Analysis →</button>
+  </div>
+</nav>
+<div class="page active" id="page-home">
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-pill"><div class="hero-pill-dot"></div><div class="hero-pill-text">AI-Powered Legal Rights Analysis — Free to Start</div></div>
+    <h1><span class="h1-line1">Know Your</span><span class="h1-line2">Legal Rights.</span><span class="h1-line3">Fight Back.</span></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-desc"><strong>73 million Americans face a legal problem every year.</strong> 80% handle it completely alone — no guidance, no lawyer, no idea what rights they actually have. VERDICT gives you instant AI-powered legal analysis, a step-by-step action plan, and a ready-to-send demand letter. For free.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})"><span class="btn-gold-label">⚖ Analyze My Situation Free</span></button>
+      <button class="btn-ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">View Plans</button>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item"><span class="trust-icon">🔒</span>No Data Stored</div>
+      <div class="trust-item"><span class="trust-icon">⚡</span>Instant Analysis</div>
+      <div class="trust-item"><span class="trust-icon">📋</span>Demand Letters</div>
+      <div class="trust-item"><span class="trust-icon">🌎</span>All 50 States</div>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="panel-eyebrow">Why VERDICT Exists</div>
+    <div class="stat-block"><div class="stat-num">73M</div><div class="stat-label">Americans face a civil legal problem every year with no access to an attorney</div></div>
+    <div class="stat-block"><div class="stat-num">$400</div><div class="stat-label">Average hourly attorney cost — more than most Americans earn in a day</div></div>
+    <div class="stat-block"><div class="stat-num">86%</div><div class="stat-label">Of low-income Americans' legal needs go completely unmet every year</div></div>
+  </div>
+</section>
+<div class="ticker"><div class="ticker-track"><div class="ticker-item">Security Deposit Theft</div><div class="ticker-item">Wrongful Termination</div><div class="ticker-item">Debt Collector Harassment</div><div class="ticker-item">Illegal Eviction</div><div class="ticker-item">Unpaid Wages</div><div class="ticker-item">Insurance Denial</div><div class="ticker-item">Small Claims Court</div><div class="ticker-item">Consumer Fraud</div><div class="ticker-item">FDCPA Violations</div><div class="ticker-item">Security Deposit Theft</div><div class="ticker-item">Wrongful Termination</div><div class="ticker-item">Debt Collector Harassment</div><div class="ticker-item">Illegal Eviction</div><div class="ticker-item">Unpaid Wages</div><div class="ticker-item">Insurance Denial</div><div class="ticker-item">Small Claims Court</div><div class="ticker-item">Consumer Fraud</div><div class="ticker-item">FDCPA Violations</div></div></div>
+<section class="use-cases">
+  <div class="section-eyebrow">What We Handle</div>
+  <h2 class="section-title">Legal Help For Real Life</h2>
+  <p class="section-sub">The situations that hit everyday Americans hardest — finally addressed without a $400/hour bill.</p>
+  <div class="uc-grid">
+    <div class="uc-card"><div class="uc-icon">🏠</div><div class="uc-title">Landlord & Tenant</div><div class="uc-desc">Security deposits, illegal evictions, habitability violations, lease disputes</div></div>
+    <div class="uc-card"><div class="uc-icon">💼</div><div class="uc-title">Employment Rights</div><div class="uc-desc">Unpaid wages, wrongful termination, FMLA violations, workplace discrimination</div></div>
+    <div class="uc-card"><div class="uc-icon">💳</div><div class="uc-title">Debt & Collections</div><div class="uc-desc">Collector harassment, FDCPA violations, credit report disputes</div></div>
+    <div class="uc-card"><div class="uc-icon">🏥</div><div class="uc-title">Insurance Disputes</div><div class="uc-desc">Wrongful denials, bad faith practices, medical billing errors</div></div>
+    <div class="uc-card"><div class="uc-icon">⚖️</div><div class="uc-title">Small Claims Court</div><div class="uc-desc">Case prep, demand letters, evidence organization, filing guidance</div></div>
+  </div>
+</section>
+<section class="app-section" id="app">
+  <div class="app-sidebar">
+    <div class="sidebar-title">Your Case</div>
+    <div class="sidebar-sub">Select a category</div>
+    <ul class="sit-list" id="sitList">
+      <li class="sit-item active" data-type="landlord" onclick="selectSit(this,'Landlord & Tenant Dispute','Describe what happened: What did your landlord do or fail to do? Include dates, deposit amounts, lease terms, communications, and your desired outcome.')"><div class="sit-icon">🏠</div>Landlord / Tenant</li>
+      <li class="sit-item" data-type="employment" onclick="selectSit(this,'Employment Rights Violation','Describe what happened at work: Were you fired, unpaid, denied leave, or discriminated against? Include dates, your role, and any documentation.')"><div class="sit-icon">💼</div>Employment Rights</li>
+      <li class="sit-item" data-type="debt" onclick="selectSit(this,'Debt Collector Harassment','Describe the collection situation: Who is contacting you, how often, what are they saying or threatening? Include the original debt and any communications.')"><div class="sit-icon">💳</div>Debt & Collections</li>
+      <li class="sit-item" data-type="insurance" onclick="selectSit(this,'Insurance Claim Dispute','Describe the denial: What type of insurance, what was your claim for, why did they deny it, and what reason did they give in writing?')"><div class="sit-icon">🏥</div>Insurance Dispute</li>
+      <li class="sit-item" data-type="smallclaims" onclick="selectSit(this,'Small Claims Court Preparation','Describe your case: Who owes you money, how much is at stake, what evidence do you have, and what state are you in?')"><div class="sit-icon">⚖️</div>Small Claims Court</li>
+      <li class="sit-item" data-type="consumer" onclick="selectSit(this,'Consumer Fraud / Deceptive Practice','Describe what happened: What did you purchase, what was promised vs delivered, how much is involved, and what steps have you taken?')"><div class="sit-icon">🛡️</div>Consumer Fraud</li>
+      <li class="sit-item" data-type="other" onclick="selectSit(this,'General Legal Situation','Describe your situation in full detail: all facts, dates, amounts, parties involved, and what outcome you are hoping for.')"><div class="sit-icon">📋</div>Other Situation</li>
+    </ul>
+  </div>
+  <div class="app-main">
+    <div class="app-head"><h2 id="sitTitle">Landlord & Tenant Dispute</h2><p>More detail = more accurate analysis. Don't hold back.</p></div>
+    <div class="consent-box"><label class="consent-label"><input type="checkbox" id="consentBox" onchange="toggleBtn()"><span>I understand VERDICT provides <strong>legal information, not legal advice</strong> and does not create an attorney-client relationship. I agree to the <a onclick="showPage('terms')">Terms of Service</a> and <a onclick="showPage('privacy')">Privacy Policy</a>. I understand complex matters require a licensed attorney.</span></label></div>
+    <div class="form-group"><label>Describe Your Situation In Detail</label><textarea id="sitText" placeholder="Describe what happened..."></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Your State</label><select id="userState"><option value="">Select your state...</option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select></div>
+      <div class="form-group"><label>Amount Involved</label><input type="text" id="amtField" placeholder="e.g. $2,400 security deposit"></div>
+    </div>
+    <div class="form-group"><label>Desired Outcome</label><input type="text" id="outcomeField" placeholder="e.g. Get my deposit back, stop harassment calls..."></div>
+    <div class="privacy-row">Your submission is processed in real time and never stored or retained on any server.</div>
+    <button class="analyze-btn" id="analyzeBtn" onclick="runAnalysis()" disabled><span class="analyze-btn-label">⚖ Analyze My Legal Rights</span></button>
+    <div class="loading-bar-wrap" id="loadWrap"><span>Analyzing against applicable law</span><div class="loading-bar"><div class="loading-fill"></div></div></div>
+    <div class="results" id="results">
+      <div class="r-card"><div class="r-head"><div class="r-head-title">Your Legal Rights & Position</div><div class="r-badge">AI Analysis</div></div><div class="r-body" id="rightsBody"><p>Loading...</p></div></div>
+      <div class="r-card"><div class="r-head"><div class="r-head-title">Your Action Plan</div><div class="r-badge">Step by Step</div></div><div class="r-body"><ul class="steps" id="stepsBody"></ul></div></div>
+      <div class="r-card" id="dlCard"><div class="r-head"><div class="r-head-title">Critical Deadlines</div><div class="r-badge">Time Sensitive</div></div><div class="r-body"><div class="dl-list" id="dlBody"></div></div></div>
+      <div class="r-card"><div class="r-head"><div class="r-head-title">Demand Letter — Ready to Send</div><div class="r-badge">Generated Document</div></div><div class="r-body"><div class="letter-box" id="letterBody"></div><div class="letter-btns"><button class="lbtn gold" onclick="copyLetter()">Copy Letter</button><button class="lbtn ghost" onclick="runAnalysis()">Regenerate</button></div></div></div>
+      <div class="disclaimer"><strong>Legal Disclaimer:</strong> VERDICT provides AI-powered legal information for educational purposes only. This is NOT legal advice and does NOT create an attorney-client relationship. Laws vary by jurisdiction. Always consult a licensed attorney for matters of significant legal consequence.</div>
+    </div>
+  </div>
+</section>
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div style="margin-bottom:56px;"><div class="section-eyebrow">Plans</div><h2 class="section-title">Less Than 10 Minutes<br>Of Attorney Time.</h2><p class="section-sub">No contracts. Cancel anytime. Start free.</p></div>
+    <div class="pricing-grid">
+      <div class="p-card"><div class="p-tag">Free Forever</div><div class="p-name">Basic</div><div class="p-price"><sup>$</sup>0</div><div class="p-period">no card required</div><ul class="p-features"><li>2 analyses per month</li><li>Rights overview and summary</li><li>General action guidance</li><li>No document generation</li></ul><button class="p-btn outline" onclick="toast('Start your free analysis above ↑')">Get Started Free</button></div>
+      <div class="p-card featured"><div class="p-tag">Most Popular</div><div class="p-name">Advocate</div><div class="p-price"><sup>$</sup>19</div><div class="p-period">per month — cancel anytime</div><ul class="p-features"><li>Unlimited situation analyses</li><li>Full legal rights breakdown</li><li>Step-by-step action plans</li><li>Demand letter generation</li><li>Critical deadline tracking</li><li>All 50 states covered</li></ul><button class="p-btn gold" onclick="subscribe('advocate')">Start Free Trial</button></div>
+      <div class="p-card"><div class="p-tag">Full Power</div><div class="p-name">Sovereign</div><div class="p-price"><sup>$</sup>49</div><div class="p-period">per month</div><ul class="p-features"><li>Everything in Advocate</li><li>Attorney referral network</li><li>Court filing checklist builder</li><li>Multiple case tracking</li><li>Evidence organization system</li><li>Priority analysis queue</li></ul><button class="p-btn outline" onclick="subscribe('sovereign')">Get Sovereign</button></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-name">VER<span>DICT</span></div><div class="footer-desc">AI-powered legal information for the 73 million Americans who can't afford $400/hour.</div></div>
+    <div><div class="footer-col-title">Navigate</div><div class="footer-links"><button class="f-link" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Analyze My Case</button><button class="f-link" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</button><button class="f-link" onclick="showPage('privacy')">Privacy Policy</button><button class="f-link" onclick="showPage('terms')">Terms of Service</button></div></div>
+    <div class="footer-legal-col">© 2025 VERDICT. All rights reserved.<br>Not a law firm. Not legal advice.<br>For educational purposes only.</div>
+  </div>
+  <div class="footer-bottom">VERDICT provides legal information, not legal advice, and does not create an attorney-client relationship.</div>
+</footer>
+</div>
+<div class="page" id="page-privacy"><div class="legal-page"><h1>Privacy Policy</h1><div class="legal-date">Effective: January 1, 2025</div><div class="legal-highlight"><strong>Short version:</strong> VERDICT does not store, save, log, or share your legal situation details.</div><h2>1. Who We Are</h2><p>VERDICT is an AI-powered legal information service. We are not a law firm.</p><h2>2. Information We Collect</h2><p>Situation details you provide are processed in real time and not retained. We do not collect identifying information unless you create an account. Payment information is processed entirely by Stripe.</p><h2>3. How We Use Your Information</h2><p>Legal situation details are processed only to generate your analysis. They are not stored, logged, used to train AI models, or shared with third parties.</p><h2>4. Third-Party Services</h2><ul><li><strong>Netlify:</strong> Website hosting.</li><li><strong>Stripe:</strong> Payment processing.</li><li><strong>Anthropic:</strong> AI analysis engine.</li></ul><h2>5. Data Security</h2><p>All data is encrypted in transit via HTTPS/TLS. We do not maintain a backend database of your legal situation details.</p><h2>6. Changes</h2><p>We may update this policy periodically. Continued use after changes constitutes acceptance.</p></div><footer><div class="footer-top" style="grid-template-columns:1fr auto;"><div><div class="footer-name">VER<span>DICT</span></div></div><div class="footer-links"><button class="f-link" onclick="showPage('home')">← Back to VERDICT</button><button class="f-link" onclick="showPage('terms')">Terms of Service</button></div></div><div class="footer-bottom">© 2025 VERDICT. Not a law firm. Not legal advice.</div></footer></div>
+<div class="page" id="page-terms"><div class="legal-page"><h1>Terms of Service</h1><div class="legal-date">Effective: January 1, 2025</div><div class="legal-highlight"><strong>Critical Notice:</strong> VERDICT is NOT a law firm and does NOT provide legal advice.</div><h2>1. Acceptance</h2><p>By using VERDICT you agree to these Terms.</p><h2>2. Service Description</h2><p>VERDICT is an AI-powered legal information tool. It is NOT a law firm and NOT a substitute for a licensed attorney.</p><h2>3. No Attorney-Client Relationship</h2><p>Use of VERDICT does not create an attorney-client relationship.</p><h2>4. Not Legal Advice</h2><p>All information is for general educational purposes only. Always verify with a licensed attorney before acting.</p><h2>5. Limitation of Liability</h2><p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, VERDICT AND ITS OPERATORS SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM YOUR USE OF THIS SERVICE.</p><h2>6. Changes</h2><p>We may modify these Terms at any time. Continued use constitutes acceptance.</p></div><footer><div class="footer-top" style="grid-template-columns:1fr auto;"><div><div class="footer-name">VER<span>DICT</span></div></div><div class="footer-links"><button class="f-link" onclick="showPage('home')">← Back to VERDICT</button><button class="f-link" onclick="showPage('privacy')">Privacy Policy</button></div></div><div class="footer-bottom">© 2025 VERDICT. Not a law firm. Not legal advice.</div></footer></div>
+<div class="toast" id="toastEl"></div>
+<script>
+function delay(fn){setTimeout(fn,120);}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');window.scrollTo(0,0);}
+function toggleBtn(){document.getElementById('analyzeBtn').disabled=!document.getElementById('consentBox').checked;}
+let sitType='landlord';
+function selectSit(el,title,ph){document.querySelectorAll('.sit-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');sitType=el.dataset.type;document.getElementById('sitTitle').textContent=title;document.getElementById('sitText').placeholder=ph;document.getElementById('results').classList.remove('on');}
+function toast(msg){const t=document.getElementById('toastEl');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
+function subscribe(plan){toast('Redirecting to '+plan+' checkout...');}
+function copyLetter(){navigator.clipboard.writeText(document.getElementById('letterBody').textContent).then(()=>toast('✓ Demand letter copied to clipboard'));}
+async function runAnalysis(){
+  const situation=document.getElementById('sitText').value.trim();
+  const state=document.getElementById('userState').value;
+  const amount=document.getElementById('amtField').value.trim();
+  const outcome=document.getElementById('outcomeField').value.trim();
+  if(!situation||situation.length<30){toast('Please describe your situation in more detail.');return;}
+  const btn=document.getElementById('analyzeBtn');
+  const load=document.getElementById('loadWrap');
+  const res=document.getElementById('results');
+  btn.disabled=true;load.classList.add('on');res.classList.remove('on');
+  const sys=`You are VERDICT, an expert AI legal information assistant. Be direct, specific, empowering. Reference specific laws and statutes where applicable. Clarify you provide legal information, not legal advice. Return ONLY valid JSON — no preamble, no markdown: {"rights_analysis":"2-3 substantial paragraphs citing specific laws","action_steps":[{"title":"Step title","detail":"Specific actionable instruction"},{"title":"","detail":""},{"title":"","detail":""},{"title":"","detail":""},{"title":"","detail":""}],"deadlines":[{"label":"deadline description","timeframe":"specific timeframe","urgency":"urgent|warning|safe"}],"demand_letter":"Complete professional demand letter with placeholders."}`;
+  const msg=`Type:${sitType}\nState:${state||'Not specified'}\nAmount:${amount||'Not specified'}\nOutcome:${outcome||'Not specified'}\n\nDetails:\n${situation}`;
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:sys,messages:[{role:"user",content:msg}]})});
+    if(!r.ok)throw new Error('API '+r.status);
+    const d=await r.json();
+    const raw=d.content.map(i=>i.text||'').join('');
+    const p=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const rb=document.getElementById('rightsBody');rb.innerHTML='';
+    const paras=p.rights_analysis.split('\n\n').filter(x=>x.trim());
+    (paras.length?paras:[p.rights_analysis]).forEach(para=>{const el=document.createElement('p');el.textContent=para.trim();rb.appendChild(el);});
+    const sb=document.getElementById('stepsBody');sb.innerHTML='';
+    p.action_steps.forEach((s,i)=>{const li=document.createElement('li');li.className='step';li.innerHTML=`<div class="step-n">${String(i+1).padStart(2,'0')}</div><div class="step-body"><strong>${s.title}</strong>${s.detail}</div>`;sb.appendChild(li);});
+    const db=document.getElementById('dlBody');db.innerHTML='';
+    const dc=document.getElementById('dlCard');
+    if(p.deadlines&&p.deadlines.length){p.deadlines.forEach(dl=>{const div=document.createElement('div');div.className='dl-item';div.innerHTML=`<span class="dl-label">${dl.label}</span><span class="dl-date ${dl.urgency||'warning'}">${dl.timeframe}</span>`;db.appendChild(div);});dc.style.display='block';}else{dc.style.display='none';}
+    document.getElementById('letterBody').textContent=p.demand_letter;
+    res.classList.add('on');
+    setTimeout(()=>res.scrollIntoView({behavior:'smooth',block:'start'}),120);
+  }catch(e){console.error(e);toast('Analysis failed. Check your connection and try again.');}
+  btn.disabled=false;
+  if(document.getElementById('consentBox').checked)btn.disabled=false;
+  load.classList.remove('on');
+}
+</script>
+</body>
+</html>
