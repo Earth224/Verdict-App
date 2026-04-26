@@ -326,7 +326,7 @@ function toggleBtn(){document.getElementById('analyzeBtn').disabled=!document.ge
 let sitType='landlord';
 function selectSit(el,title,ph){document.querySelectorAll('.sit-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');sitType=el.dataset.type;document.getElementById('sitTitle').textContent=title;document.getElementById('sitText').placeholder=ph;document.getElementById('results').classList.remove('on');}
 function toast(msg){const t=document.getElementById('toastEl');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
-function subscribe(plan){if(plan==='advocate')window.open('https://buy.stripe.com/9B6eV532lewEer9g0EefC00');}if(plan==='sovereign')window.open('https://buy.stripe.com/fZudR132lfAI96P01GefC01');if(plan==='basic')window.open('https://buy.stripe.com/4gMdR1gTb88gaaTg0EefC02');
+function subscribe(plan){if(plan==='advocate')window.open('https://buy.stripe.com/9B6eV532lewEer9g0EefC00');}if(plan==='sovereign')window.open('https://buy.stripe.com/fZudR132lfAI96P01GefC01');if(plan==='basic')window.open('https://buy.stripe.com/4gMdR1gTb88gaaTg0EefC02');}
 
 function copyLetter(){navigator.clipboard.writeText(document.getElementById('letterBody').textContent).then(()=>toast('✓ Demand letter copied to clipboard'));}
 async function runAnalysis(){
